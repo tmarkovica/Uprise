@@ -113,7 +113,7 @@ public class PowerPlantController : ControllerBase
 
     [UserAuthFilter]
     [HttpGet("{id}/production")]
-    public async Task<ActionResult<RealProduction>> GetPowerPlantProduction(
+    public async Task<ActionResult<PowerProduction>> GetPowerPlantProduction(
         int id, [FromQuery] PowerPlantProductionRequest query)
     {
         try

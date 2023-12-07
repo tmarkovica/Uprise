@@ -11,12 +11,12 @@ To create migration. -p to navigate to folder where is solution.\
 Delete Migration\
 `dotnet ef migrations remove`\
 Update database. -v to log\
-`dotnet ef database upddate -v`\
+`dotnet ef database upddate -v`
 
 
 ## My DbContexts
 `dotnet ef migrations add MigrationUpriseSchema --context UpriseDbContext -p . -v`\
-`dotnet ef migrations add MigrationPowerPlantSchema --context PowerPlantDbContext -p . -v`\
+`dotnet ef migrations add MigrationPowerPlantSchema --context PowerPlantDbContext -p . -v`
 
 `dotnet ef database update --context UpriseDbContext -v`\
-`dotnet ef database update --context PowerPlantDbContext -v`\
+`dotnet ef database update --context PowerPlantDbContext -v`

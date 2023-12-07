@@ -18,13 +18,10 @@ public class PowerPlantDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<PowerPlant>();
-        modelBuilder.Entity<RealProduction>();
-        modelBuilder.Entity<ForecastedProduction>();
+        modelBuilder.Entity<PowerProduction>();
     }
 
     public DbSet<PowerPlant> PowerPlants { get; set; }
 
-    public DbSet<RealProduction> RealProductions { get; set; }
-
-    public DbSet<ForecastedProduction> ForecastedProductions { get; set; }
+    public DbSet<PowerProduction> RealProductions { get; set; }
 }

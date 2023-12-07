@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Uprise.Repository.Power_Plant;
@@ -11,9 +12,10 @@ using Uprise.Repository.Power_Plant;
 namespace Uprise.Migrations
 {
     [DbContext(typeof(PowerPlantDbContext))]
-    partial class PowerPlantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231207080847_InitialMigration3")]
+    partial class InitialMigration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

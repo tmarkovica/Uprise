@@ -5,13 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace Uprise.Repository.Power_Plant.Models;
 
-[Table("forecasted_productions", Schema = PowerPlantDbContext.SCHEMA)]
+[Table(TABLENAME, Schema = PowerPlantDbContext.SCHEMA)]
 [Keyless]
-public partial class ForecastedProduction
+public partial class PowerProduction
 {
+    public const string TABLENAME = "real_productions";
+
     [JsonIgnore]
     [Column("power_plant_id", TypeName = "integer")]
-    [ForeignKey("FK_power_plants_forecasted_productions")]
+    [ForeignKey("FK_power_plants_real_productions")]
     public int PowerPlantId { get; set; }
 
     [Column("power")]
@@ -22,4 +24,8 @@ public partial class ForecastedProduction
 
     [JsonIgnore]
     public PowerPlant PowerPlant { get; set; }
+
+    public static string Table() { return $"{PowerPlantDbContext.SCHEMA}.{TABLENAME}"; }
+
+    public override string ToString() { return $"{PowerPlantId}, {Power}, {Timestamp}"; }
 }

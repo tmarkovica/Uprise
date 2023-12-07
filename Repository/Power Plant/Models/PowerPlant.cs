@@ -36,15 +36,6 @@ public partial class PowerPlant
     [Column("longitude")]
     public float Longitude { get; set; }
 
-
-    //[NotMapped]
-    //[JsonPropertyName("real_productions")]
-    //public List<RealProduction> RealProductions;
-
-    //[NotMapped]
-    //[JsonPropertyName("forecasted_productions")]
-    //public List<ForecastedProduction> ForecastedProductions = new();
-
     public static string Table() { return $"{PowerPlantDbContext.SCHEMA}.{TABLENAME}"; }
 
     public override string ToString()

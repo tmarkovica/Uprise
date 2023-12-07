@@ -18,9 +18,6 @@ public class PowerPlantService
 
     public async Task<PowerPlant> Create(PowerPlant request)
     {
-        _logger.LogInformation(request.ToString());
-        _logger.LogInformation(PowerPlant.Table());
-
         var res = await _db.PowerPlants.FromSqlRaw(
             $"INSERT INTO {PowerPlant.Table()} (name, installed_power, latitude, longitude, date_of_installation) " +
             "VALUES (@p1, @p2, @p3, @p4, @p5) RETURNING *",

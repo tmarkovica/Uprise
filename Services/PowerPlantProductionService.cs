@@ -20,7 +20,7 @@ public class PowerPlantProductionService
         _logger = logger;
     }
 
-    public async Task<List<RealProduction>> Get_RealProduction(int powerPlantId, int granularity = 15, int timespan = 60)
+    public async Task<List<PowerProduction>> Get_RealProduction(int powerPlantId, int granularity = 15, int timespan = 60)
     {
         var res = await _db.RealProductions.Where(
             p => (p.PowerPlantId == powerPlantId && p.Timestamp > DateTime.Now.AddMinutes(-1 * timespan))
@@ -53,13 +53,13 @@ public class PowerPlantProductionService
         return new Random().NextDouble() / 10000;
     }
 
-    private List<RealProduction> GetProductionPredictionsBasedOnWeatherForecast(
+    private List<PowerProduction> GetProductionPredictionsBasedOnWeatherForecast(
         List<DateTime> timestamps, string installedPower, string forecast)
     {
-        List<RealProduction> forecastedProductions = new();
+        List<PowerProduction> forecastedProductions = new();
         for (int i = 0; i < timestamps.Count; i++)
         {
-            forecastedProductions.Add(new RealProduction()
+            forecastedProductions.Add(new PowerProduction()
             {
                 Power = PredictPowerProduction(installedPower, forecast),
                 Timestamp = timestamps[i]
@@ -68,7 +68,7 @@ public class PowerPlantProductionService
         return forecastedProductions;
     }
 
-    public async Task<List<RealProduction>> Get_ForecastedProduction(int powerPlantId, int granularity = 15, int timespan = 60)
+    public async Task<List<PowerProduction>> Get_ForecastedProduction(int powerPlantId, int granularity = 15, int timespan = 60)
     {
         PowerPlant powerPlant = await _db.PowerPlants.SingleAsync(p => p.Id == powerPlantId);
         return GetProductionPredictionsBasedOnWeatherForecast(
@@ -78,7 +78,7 @@ public class PowerPlantProductionService
             );
     }
 
-    public async Task Create_RealProductionRecordsForPowerPlant(List<RealProduction> records, int powerPlantId)
+    public async Task Create_RealProductionRecordsForPowerPlant(List<PowerProduction> records, int powerPlantId)
     {
         StringBuilder sb = new();
         var parameters = new List<NpgsqlParameter>()
@@ -95,7 +95,7 @@ public class PowerPlantProductionService
                 sb.Append(", ");
         }
         _ = await _db.Database.ExecuteSqlRawAsync(
-            $"INSERT INTO {RealProduction.Table()} (power_plant_id, power, timestamp) VALUES {sb}",
+            $"INSERT INTO {PowerProduction.Table()} (power_plant_id, power, timestamp) VALUES {sb}",
             parameters.ToArray()
             );
     }
@@ -134,10 +134,10 @@ public class PowerPlantProductionService
 
         foreach (var powerPlant in allPowerPlants)
         {
-            List<RealProduction> realProductions = new();
+            List<PowerProduction> realProductions = new();
             for (int i = 0; i < timestamps.Count; i++)
             {
-                realProductions.Add(new RealProduction()
+                realProductions.Add(new PowerProduction()
                 {
                     Power = rng.Next() / 10000,
                     Timestamp = timestamps[i]

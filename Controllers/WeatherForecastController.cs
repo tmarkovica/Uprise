@@ -43,7 +43,6 @@ public class WeatherForecastController : ControllerBase
         try
         {
             var powerPlant = await _powerPlantService.Read(powerPlantId);
-            _logger.LogInformation(powerPlant.Name);
             return Ok(await _forecastService.GetWeatherForecastSimple(powerPlant.Latitude, powerPlant.Longitude, 2));
         }
         catch (Exception e)
